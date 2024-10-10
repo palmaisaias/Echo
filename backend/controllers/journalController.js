@@ -8,7 +8,7 @@ exports.createEntry = (req, res) => {
     if (err) {
       res.status(500).json({ error: err.message });
     } else {
-      res.status(201).json({ message: 'Journal entry created successfully', id: results.insertId });
+      res.status(201).json({ message: 'Entry saved! Reflect and grow at your own pace', id: results.insertId });
     }
   });
 };
