@@ -1,4 +1,6 @@
 const db = require('../db');
+const { exec } = require('child_process');
+const path = require('path');
 
 // Create a new journal entry
 exports.createEntry = (req, res) => {
@@ -70,5 +72,26 @@ exports.deleteEntry = (req, res) => {
     } else {
       res.status(200).json({ message: 'Journal entry deleted successfully' });
     }
+  });
+};
+
+// Analyze sentiment of a journal entry
+exports.analyzeSentiment = (req, res) => {
+  const { content } = req.body;
+
+  // Use the correct path for the sentiment analysis script
+  const pythonPath = path.resolve(__dirname, '../../venv/bin/python3'); // For macOS/Linux
+  const scriptPath = path.resolve(__dirname, '../sentiment/analyze_sentiment.py');  // Update path to sentiment folder
+
+  exec(`${pythonPath} ${scriptPath} "${content}"`, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error executing sentiment analysis: ${error.message}`);
+      return res.status(500).json({ error: error.message });
+    }
+    if (stderr) {
+      console.error(`Error in sentiment analysis script: ${stderr}`);
+      return res.status(500).json({ error: stderr });
+    }
+    res.status(200).json({ sentiment: stdout.trim() });
   });
 };

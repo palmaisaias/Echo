@@ -17,4 +17,6 @@ router.put('/journal/:id', journalController.updateEntry);
 // Route to delete a journal entry by ID
 router.delete('/journal/:id', journalController.deleteEntry);
 
+router.post('/journal/analyze', journalController.analyzeSentiment);
+
 module.exports = router;

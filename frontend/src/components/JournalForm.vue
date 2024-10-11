@@ -12,6 +12,10 @@
         </div>
         <button type="submit">Add Entry</button>
       </form>
+      <div v-if="sentiment">
+        <h3>Sentiment Analysis Result:</h3>
+        <p>{{ sentiment }}</p>
+      </div>
     </div>
   </template>
   
@@ -22,23 +26,32 @@
     data() {
       return {
         title: '',
-        content: ''
+        content: '',
+        sentiment: null
       };
     },
     methods: {
       async handleSubmit() {
         try {
+          // Create the journal entry
           const response = await axios.post('http://localhost:3000/api/journal', {
             title: this.title,
             content: this.content
           });
           console.log('Form submitted:', response.data);
+  
+          // Call the sentiment analysis API
+          const sentimentResponse = await axios.post('http://localhost:3000/api/journal/analyze', {
+            content: this.content
+          });
+          this.sentiment = sentimentResponse.data.sentiment;
+  
           // Clear the form fields after submission
           this.title = '';
           this.content = '';
           this.$emit('entry-added'); // Emit an event to indicate a new entry was added
         } catch (error) {
-          console.error('Error submitting form:', error);
+          console.error('Error submitting form or analyzing sentiment:', error);
         }
       }
     }
