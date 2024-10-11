@@ -3,12 +3,14 @@ const db = require('../db');
 // Create a new journal entry
 exports.createEntry = (req, res) => {
   const { title, content } = req.body;
+  console.log('Creating a new entry:', title, content); // Add this to verify the data is coming in
   const query = 'INSERT INTO journal_entries (title, content) VALUES (?, ?)';
   db.query(query, [title, content], (err, results) => {
     if (err) {
+      console.error('Error executing query:', err);
       res.status(500).json({ error: err.message });
     } else {
-      res.status(201).json({ message: 'Entry saved! Reflect and grow at your own pace', id: results.insertId });
+      res.status(201).json({ message: 'Journal entry created successfully', id: results.insertId });
     }
   });
 };
