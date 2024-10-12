@@ -5,15 +5,34 @@ const path = require('path');
 // Create a new journal entry
 exports.createEntry = (req, res) => {
   const { title, content } = req.body;
-  console.log('Creating a new entry:', title, content); // Add this to verify the data is coming in
-  const query = 'INSERT INTO journal_entries (title, content) VALUES (?, ?)';
-  db.query(query, [title, content], (err, results) => {
-    if (err) {
-      console.error('Error executing query:', err);
-      res.status(500).json({ error: err.message });
-    } else {
-      res.status(201).json({ message: 'Journal entry created successfully', id: results.insertId });
+
+  // Use absolute paths
+  const pythonPath = '/Users/isaiaspalma/Documents/Professional/Personal_Projects/echo-mental-health-journal/venv/bin/python3';
+  const scriptPath = '/Users/isaiaspalma/Documents/Professional/Personal_Projects/echo-mental-health-journal/backend/sentiment/analyze_sentiment.py';
+
+  // Perform sentiment analysis before saving the entry
+  const command = `${pythonPath} ${scriptPath} "${content}"`;
+  console.log('Executing sentiment analysis command:', command);
+
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error executing sentiment analysis: ${error.message}`);
+      return res.status(500).json({ error: error.message });
     }
+    if (stderr) {
+      console.error(`Error in sentiment analysis script: ${stderr}`);
+      return res.status(500).json({ error: stderr });
+    }
+
+    const sentiment = stdout.trim();
+    const query = 'INSERT INTO journal_entries (title, content, sentiment) VALUES (?, ?, ?)';
+    db.query(query, [title, content, sentiment], (err, results) => {
+      if (err) {
+        res.status(500).json({ error: err.message });
+      } else {
+        res.status(201).json({ message: 'Journal entry created successfully', id: results.insertId });
+      }
+    });
   });
 };
 
@@ -79,11 +98,19 @@ exports.deleteEntry = (req, res) => {
 exports.analyzeSentiment = (req, res) => {
   const { content } = req.body;
 
-  // Use the correct path for the sentiment analysis script
-  const pythonPath = path.resolve(__dirname, '../../venv/bin/python3'); // For macOS/Linux
-  const scriptPath = path.resolve(__dirname, '../sentiment/analyze_sentiment.py');  // Update path to sentiment folder
+  // Use the correct absolute paths
+  const pythonPath = '/Users/isaiaspalma/Documents/Professional/Personal_Projects/echo-mental-health-journal/venv/bin/python3';
+  const scriptPath = '/Users/isaiaspalma/Documents/Professional/Personal_Projects/echo-mental-health-journal/backend/sentiment/analyze_sentiment.py';
 
-  exec(`${pythonPath} ${scriptPath} "${content}"`, (error, stdout, stderr) => {
+  console.log('Python Path:', pythonPath);  // Confirm Python path
+  console.log('Script Path:', scriptPath);  // Confirm script path
+  console.log('Current Working Directory:', process.cwd());  // Confirm working directory
+
+  // Execute the command with the correct paths
+  const command = `${pythonPath} ${scriptPath} "${content}"`;
+  console.log('Executing command:', command);  // Log the exact command
+
+  exec(command, (error, stdout, stderr) => {
     if (error) {
       console.error(`Error executing sentiment analysis: ${error.message}`);
       return res.status(500).json({ error: error.message });
