@@ -1,23 +1,40 @@
 <template>
-    <div class="journal-form">
-      <h2>Create a New Journal Entry</h2>
-      <form @submit.prevent="handleSubmit">
-        <div>
-          <label for="title">Title:</label>
-          <input type="text" id="title" v-model="title" required />
-        </div>
-        <div>
-          <label for="content">Content:</label>
-          <textarea id="content" v-model="content" required></textarea>
-        </div>
-        <button type="submit">Add Entry</button>
-      </form>
-      <div v-if="sentiment">
-        <h3>Sentiment Analysis Result:</h3>
+  <div class="journal-form">
+    <h2 class="text-center mb-4">Create a New Journal Entry</h2>
+    <form @submit.prevent="handleSubmit" class="border p-4 rounded shadow-sm">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title:</label>
+        <input 
+          type="text" 
+          id="title" 
+          v-model="title" 
+          class="form-control" 
+          placeholder="Enter the title" 
+          required 
+        />
+      </div>
+      <div class="mb-3">
+        <label for="content" class="form-label">Content:</label>
+        <textarea 
+          id="content" 
+          v-model="content" 
+          class="form-control" 
+          placeholder="Write your entry here..." 
+          rows="5" 
+          required
+        ></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Add Entry</button>
+    </form>
+
+    <div v-if="sentiment" class="mt-4">
+      <h3>Sentiment Analysis Result:</h3>
+      <div class="alert alert-info">
         <p>{{ sentiment }}</p>
       </div>
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
   import axios from 'axios';

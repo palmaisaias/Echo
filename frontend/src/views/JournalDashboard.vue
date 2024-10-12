@@ -4,14 +4,18 @@
     <JournalForm @entry-added="fetchEntries" />
     <div v-if="entries.length > 0">
       <h2>Your Journal Entries</h2>
-      <div v-for="entry in entries" :key="entry.id" class="entry-container">
-        <!-- Wrap the JournalEntry and sentiment together inside one box -->
-        <div class="entry-content">
-          <JournalEntry :entry="entry" />
-          <div class="sentiment-wrapper">
-            <span :class="getSentimentClass(entry.sentiment)">
-              {{ entry.sentiment }}
-            </span>
+      <div class="row">
+        <div v-for="entry in entries" :key="entry.id" class="col-md-4 mb-4">
+          <!-- Bootstrap Card -->
+          <div class="card">
+            <div class="card-body">
+              <JournalEntry :entry="entry" />
+            </div>
+            <div class="card-footer text-muted sentiment-wrapper">
+              <span :class="getSentimentClass(entry.sentiment)">
+                {{ entry.sentiment }}
+              </span>
+            </div>
           </div>
         </div>
       </div>

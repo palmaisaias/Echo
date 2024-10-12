@@ -1,10 +1,14 @@
 <template>
-    <div class="journal-entry">
-      <h3>{{ entry.title }}</h3>
-      <p>{{ entry.content }}</p>
+  <div class="journal-entry card mb-4 shadow-sm">
+    <div class="card-body">
+      <h3 class="card-title">{{ entry.title }}</h3>
+      <p class="card-text">{{ entry.content }}</p>
+    </div>
+    <div class="card-footer text-muted">
       <small>Created at: {{ formatDate(entry.created_at) }}</small>
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
   export default {
