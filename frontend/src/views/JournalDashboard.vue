@@ -1,14 +1,16 @@
 <template>
   <div class="journal-dashboard">
-    <h1>Journal Dashboard</h1>
-    <JournalForm @entry-added="fetchEntries" />
-    <div v-if="entries.length > 0">
-      <h2>Your Journal Entries</h2>
-      <div class="row">
-        <div v-for="entry in entries" :key="entry.id" class="col-md-4 mb-4">
-          <!-- Bootstrap Card -->
-          <div class="card">
-            <div class="card-body">
+    <div class="header">
+      <h1 class="dashboard-title">Your Personal Journal</h1>
+      <JournalForm @entry-added="fetchEntries" />
+    </div>
+    
+    <div v-if="entries.length > 0" class="entries-container">
+      <h2 class="entries-heading">Your Journal Entries</h2>
+      <div class="entries-grid">
+        <div v-for="entry in entries" :key="entry.id" class="journal-card">
+          <div class="card shadow-lg">
+            <div class="card-body journal-entry-body">
               <JournalEntry :entry="entry" />
             </div>
             <div class="card-footer text-muted sentiment-wrapper">
@@ -20,7 +22,8 @@
         </div>
       </div>
     </div>
-    <div v-else>
+    
+    <div v-else class="no-entries-message">
       <p>No journal entries yet. Add one above!</p>
     </div>
   </div>
@@ -30,6 +33,7 @@
 import JournalForm from "../components/JournalForm.vue";
 import JournalEntry from "../components/JournalEntry.vue";
 import axios from "axios";
+import "../assets/journal-dashboard.css";
 
 export default {
   components: {
@@ -66,43 +70,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.journal-dashboard {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.entry-container {
-  border: 1px solid #ccc;
-  padding: 16px;
-  margin-bottom: 16px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.entry-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Ensures sentiment stays at the bottom */
-  padding: 16px;
-}
-
-.sentiment-wrapper {
-  text-align: right; /* Adjust as needed */
-  margin-top: 8px; /* Add space between the content and sentiment */
-}
-
-.sentiment-positive {
-  color: green;
-}
-
-.sentiment-negative {
-  color: red;
-}
-
-.sentiment-neutral {
-  color: gray;
-}
-</style>
