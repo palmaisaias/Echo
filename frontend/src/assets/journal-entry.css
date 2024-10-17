@@ -1,0 +1,32 @@
+.journal-entry {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.card-body {
+  font-size: 1.1rem;
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.card-footer {
+  background-color: #f8f9fa;
+  font-size: 0.9rem;
+  text-align: right;
+  padding: 10px;
+}
+
+.shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
