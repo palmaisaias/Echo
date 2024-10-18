@@ -8,7 +8,7 @@ def analyze_sentiment(text):
     # Perform basic sentiment classification based on word token analysis
     doc = nlp(text)
     positive_words = ["good", "happy", "love", "great", "positive", "joyful", "grateful", "optimistic", "peaceful", "content", "satisfied", "hopeful", "cheerful", "vibrant", "blissful", "confident", "empowered", "energetic", "friendly", "harmonious", "inspired", "motivated", "radiant", "thrilled", "uplifted"]
-    negative_words = ["bad", "sad", "hate", "terrible", "negative"]
+    negative_words = ["bad", "sad", "hate", "terrible", "negative", "angry", "frustrated", "disappointed", "upset", "miserable", "hopeless", "lonely", "anxious", "depressed", "hurt", "fearful", "bitter", "resentful", "unhappy", "stressed", "worried", "irritated", "discouraged", "nervous", "exhausted"]
 
     positive_count = sum([1 for token in doc if token.text.lower() in positive_words])
     negative_count = sum([1 for token in doc if token.text.lower() in negative_words])
