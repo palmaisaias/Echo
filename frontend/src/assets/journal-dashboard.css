@@ -1,7 +1,7 @@
 **journal-dashboard.css**
 
 .journal-dashboard {
-  max-width: 1000px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 30px;
   color: #333;
@@ -32,6 +32,8 @@
 
 .entries-container {
   margin-top: 40px;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 
 .entries-grid {
