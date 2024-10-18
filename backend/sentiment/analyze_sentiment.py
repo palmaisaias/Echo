@@ -1,6 +1,7 @@
 import spacy
 
-# Load the spaCy language model
+# Load the spaCy language model. spaCy language model is the AI protion of the project. We can implement more complex language models and
+# try to spice it up a little with some of the feedback.
 nlp = spacy.load("en_core_web_sm")
 
 def analyze_sentiment(text):

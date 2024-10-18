@@ -98,7 +98,7 @@ exports.deleteEntry = (req, res) => {
 exports.analyzeSentiment = (req, res) => {
   const { content } = req.body;
 
-  // Use the correct absolute paths
+  // Use the correct absolute paths. These will have to updated for production.
   const pythonPath = '/Users/isaiaspalma/Documents/Professional/Personal_Projects/echo-mental-health-journal/venv/bin/python3';
   const scriptPath = '/Users/isaiaspalma/Documents/Professional/Personal_Projects/echo-mental-health-journal/backend/sentiment/analyze_sentiment.py';
 

@@ -38,7 +38,7 @@
 
 <script>
 import axios from 'axios';
-import "../assets/journal-form.css";  // Import the new CSS file
+import "../assets/journal-form.css";  // Import the new CSS file. tryng to keep the CSS as separate as possible to avoid cross contamination.
 
 export default {
   data() {
@@ -51,7 +51,7 @@ export default {
   methods: {
     async handleSubmit() {
       try {
-        // Create the journal entry
+        // Create the journal entry. Goes to local MySQL database but need to be hosted
         const response = await axios.post('http://localhost:3000/api/journal', {
           title: this.title,
           content: this.content
