@@ -7,7 +7,7 @@ nlp = spacy.load("en_core_web_sm")
 def analyze_sentiment(text):
     # Perform basic sentiment classification based on word token analysis
     doc = nlp(text)
-    positive_words = ["good", "happy", "love", "great", "positive"]
+    positive_words = ["good", "happy", "love", "great", "positive", "joyful", "grateful", "optimistic", "peaceful", "content", "satisfied", "hopeful", "cheerful", "vibrant", "blissful", "confident", "empowered", "energetic", "friendly", "harmonious", "inspired", "motivated", "radiant", "thrilled", "uplifted"]
     negative_words = ["bad", "sad", "hate", "terrible", "negative"]
 
     positive_count = sum([1 for token in doc if token.text.lower() in positive_words])
