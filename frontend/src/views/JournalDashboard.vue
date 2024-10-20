@@ -15,7 +15,7 @@
             </div>
             <div class="card-footer text-muted sentiment-wrapper">
               <span :class="getSentimentClass(entry.sentiment)">
-                {{ entry.sentiment }}
+                {{ getSentimentMessage(entry.sentiment) }}
               </span>
             </div>
           </div>
@@ -57,7 +57,7 @@ export default {
         console.error("Error fetching journal entries:", error);
       }
     },
-    getSentimentClass(sentiment) {
+    getSentimentMessage(sentiment) {
       const positiveResponses = [
         "Feeling great today!",
         "A positive outlook!",
@@ -97,6 +97,11 @@ export default {
           ];
       }
     },
-  },
+    getSentimentClass(sentiment) {
+      return sentiment === 'positive' ? 'text-success' :
+             sentiment === 'negative' ? 'text-danger' :
+             'text-secondary';
+    }
+  }
 };
 </script>

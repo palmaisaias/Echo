@@ -30,7 +30,7 @@
     <div v-if="sentiment" class="mt-4 sentiment-result">
       <h3>Sentiment Analysis Result:</h3>
       <div class="alert alert-info">
-        <p>{{ sentiment }}</p>
+        <p>{{ sentimentMessage }}</p>
       </div>
     </div>
   </div>
@@ -38,39 +38,49 @@
 
 <script>
 import axios from 'axios';
-import "../assets/journal-form.css";  // Import the new CSS file. tryng to keep the CSS as separate as possible to avoid cross contamination.
+import "../assets/journal-form.css";
 
 export default {
   data() {
     return {
       title: '',
       content: '',
-      sentiment: null
+      sentiment: null,
+      sentimentMessage: ''
     };
   },
   methods: {
     async handleSubmit() {
       try {
-        // Create the journal entry. Goes to local MySQL database but need to be hosted
+        // Create the journal entry in the backend
         const response = await axios.post('http://localhost:3000/api/journal', {
           title: this.title,
           content: this.content
         });
-        console.log('Form submitted:', response.data);
+        console.log('Journal entry created:', response.data);
 
-        // Call the sentiment analysis API
+        // Call the sentiment analysis endpoint
         const sentimentResponse = await axios.post('http://localhost:3000/api/journal/analyze', {
           content: this.content
         });
         this.sentiment = sentimentResponse.data.sentiment;
+        this.sentimentMessage = this.getSentimentMessage(this.sentiment);
 
-        // Clear the form fields after submission
+        // Clear form fields
         this.title = '';
         this.content = '';
-        this.$emit('entry-added'); // Emit an event to indicate a new entry was added
+        this.$emit('entry-added'); // Notify parent component of new entry
       } catch (error) {
         console.error('Error submitting form or analyzing sentiment:', error);
       }
+    },
+    getSentimentMessage(sentiment) {
+      const messages = {
+        positive: "You seem to be in high spirits today! 😊",
+        negative: "It's okay to have a rough day. Take it easy. 💙",
+        neutral: "A balanced state of mind—keep reflecting! 📝"
+      };
+      return messages[sentiment] || "Sentiment couldn't be determined.";
     }
   }
 };

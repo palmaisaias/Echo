@@ -1,14 +1,13 @@
 import spacy
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
 
 # Load the spaCy language model. spaCy language model is the AI protion of the project. We can implement more complex language models and
 # try to spice it up a little with some of the feedback.
 nlp = spacy.load("en_core_web_sm")
 
 def analyze_sentiment(text):
-    # So, here's the basic sentiment analysis function.
-    # I’m checking each word in the input text against a list of positive and negative words.
-    # If positive words outweigh negative ones, it's classified as 'positive'; vice versa for 'negative'.
-    # If it's a tie, it's just 'neutral'—because...not every day is dramatic.
     doc = nlp(text)
     positive_words = ["good", "happy", "love", "great", "positive", "joyful", "grateful", "optimistic", "peaceful", "content", "satisfied", "hopeful", "cheerful", "vibrant", "blissful", "confident", "empowered", "energetic", "friendly", "harmonious", "inspired", "motivated", "radiant", "thrilled", "uplifted"]
     negative_words = ["bad", "sad", "hate", "terrible", "negative", "angry", "frustrated", "disappointed", "upset", "miserable", "hopeless", "lonely", "anxious", "depressed", "hurt", "fearful", "bitter", "resentful", "unhappy", "stressed", "worried", "irritated", "discouraged", "nervous", "exhausted"]
@@ -22,6 +21,23 @@ def analyze_sentiment(text):
         return 'negative'
     else:
         return 'neutral'
+
+@app.route('/analyze', methods=['POST'])
+def analyze_text():
+    data = request.json
+    text = data.get('text', '')
+
+    # Run the text through different spaCy functions
+    sentiment = analyze_sentiment(text)
+    key_phrases = [ent.text for ent in nlp(text).ents]
+    detected_tones = detect_emotional_tone(text)  # Add other functions as needed
+
+    response = {
+        'sentiment': sentiment,
+        'key_phrases': key_phrases,
+        'emotional_tones': detected_tones
+    }
+    return jsonify(response)
 
 def extract_key_phrases(text):
     # Alright, this one’s all about finding the "important stuff" in the text.
