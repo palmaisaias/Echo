@@ -1,4 +1,3 @@
-```md
 # Echo Mental Health Journal
 
 Echo is a personal mental health journal that allows users to log daily journal entries and receive sentiment analysis feedback. The app uses natural language processing (NLP) via spaCy to help users understand the general tone of their entries, whether positive, negative, or neutral. Echo is designed to support mental well-being by providing insights into the emotional trends in users' journal entries over time.
