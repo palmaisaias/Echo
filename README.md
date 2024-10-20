@@ -187,14 +187,6 @@ http://localhost:3000/api
 3. Commit your changes (`git commit -m 'Add new feature'`).
 4. Push to the branch (`git push origin feature/your-feature`).
 5. Open a pull request.
-
-## License
-
-This project is licensed under the MIT License.
-
----
-
-Feel free to update any sections with specific details about your setup or preferences!
 ```
 
 Copy and paste this into your `README.md` file, and it should cover all the essential information about your Echo app. Let me know if you need any changes or additional details!
