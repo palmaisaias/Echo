@@ -3,56 +3,68 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css");
 
 .home-navbar {
-    width: 100%;
-    height: 80px;
-    background-color: rgba(39, 39, 39, 0.242); /* Increase transparency */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    z-index: 100; /* Keep it high to make sure it sits on top of other elements */
-    backdrop-filter: blur(5px); /* Optional: Add blur to make text stand out more */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
+  width: 100%;
+  height: 80px;
+  background-color: rgba(39, 39, 39, 0.242); /* Increase transparency */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  z-index: 100; /* Keep it high to make sure it sits on top of other elements */
+  backdrop-filter: blur(
+    5px
+  ); /* Optional: Add blur to make text stand out more */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-.nav-container {
+.nav-container-home {
   width: 100%;
   max-width: 1200px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+  margin-top: 15px;
 }
 
-.nav-logo {
-  color: #fff;
-  font-size: 1.8em;
-  font-weight: bold;
-  text-decoration: none;
+.nav-logo-home {
+  width: 200px; /* Adjust width as needed */
+  height: auto; /* Maintains aspect ratio */
+  max-width: 100% !important; /* Ensures responsiveness */
+  display: block; /* Removes any extra space around the image */
 }
 
-.nav-menu {
+.nav-logo-home img {
+  width: 200px; /* Adjust width as needed */
+  height: auto; /* Maintains aspect ratio */
+  max-width: 100%; /* Ensures responsiveness */
+  display: block; /* Removes any extra space around the image */
+  margin-bottom: 15px;
+}
+
+.nav-menu-home {
   list-style: none;
   display: flex;
   gap: 20px;
 }
 
-.nav-item {
+.nav-item-home {
   line-height: 60px;
 }
 
-.nav-links {
+.nav-links-home {
+  font-family: "Nunito";
   color: #333;
   background: #fff;
   padding: 10px 15px;
   border-radius: 15px;
   text-decoration: none;
-  font-size: 1.2em;
+  font-size: 1.1rem;
   transition: background-color 0.3s, color 0.3s;
 }
 
-.nav-links:hover {
+.nav-links-home:hover {
   background-color: #b6fbff;
   color: #333;
 }

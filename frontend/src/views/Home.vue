@@ -1,20 +1,22 @@
 <template>
   <div>
     <nav class="home-navbar">
-      <div class="nav-container">
-        <router-link class="nav-logo" to="/">Echo Journal</router-link>
-        <ul class="nav-menu">
+      <div class="nav-container-home">
+        <router-link class="nav-logo-home" to="/">
+          <img src="/echoLOG.png" alt="Echo Journal Logo" />
+        </router-link>
+        <ul class="nav-menu-home">
           <li class="nav-item">
-            <router-link class="nav-links" to="/">Home</router-link>
+            <router-link class="nav-links-home" to="/">home</router-link>
+          </li>
+          <li class="nav-item-home">
+            <router-link class="nav-links-home" to="/about">about Us</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-links" to="/about">About Us</router-link>
+            <router-link class="nav-links-home" to="/features">features</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-links" to="/features">Features</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-links" to="/contact">Contact</router-link>
+            <router-link class="nav-links-home" to="/contact">contact</router-link>
           </li>
         </ul>
       </div>

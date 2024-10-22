@@ -21,11 +21,18 @@
   padding: 0 20px;
 }
 
-.nav-logo {
-  color: #fff;
-  font-size: 1.8em;
-  font-weight: bold;
-  text-decoration: none;
+.nav-logo-dash {
+  width: 200px; /* Adjust width as needed */
+  height: auto; /* Maintains aspect ratio */
+  max-width: 100% !important; /* Ensures responsiveness */
+  display: block; /* Removes any extra space around the image */
+}
+
+.nav-logo-dash img {
+  width: 200px; /* Adjust width as needed */
+  height: auto; /* Maintains aspect ratio */
+  max-width: 100%; /* Ensures responsiveness */
+  display: block; /* Removes any extra space around the image */
 }
 
 .nav-menu {

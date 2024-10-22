@@ -2,7 +2,9 @@
   <div>
     <nav class="journal-navbar">
       <div class="nav-container">
-        <router-link class="nav-logo" to="/">Echo Journal</router-link>
+        <router-link class="nav-logo-dash" to="/">
+          <img src="/echoLOG.png" alt="Echo Journal Logo" />
+        </router-link>
         <ul class="nav-menu">
           <li class="nav-item">
             <router-link class="nav-links" to="/">Home</router-link>
@@ -22,12 +24,18 @@
     <div class="dashboard-container">
       <section class="journal-dashboard">
         <div class="header">
-          <h1 class="dashboard-title">Your Personal Journal</h1>
+          <!-- <h1 class="dashboard-title">Your Personal Journal</h1> -->
           <JournalForm @entry-added="fetchEntries" />
         </div>
         <div class="filter-container">
-          <label for="sentiment-filter" class="filter-label">Filter by Sentiment:</label>
-          <select id="sentiment-filter" v-model="selectedSentiment" @change="filterEntries">
+          <label for="sentiment-filter" class="filter-label"
+            >Filter by Sentiment:</label
+          >
+          <select
+            id="sentiment-filter"
+            v-model="selectedSentiment"
+            @change="filterEntries"
+          >
             <option value="all">All</option>
             <option value="positive">Positive</option>
             <option value="neutral">Neutral</option>
@@ -40,11 +48,19 @@
         <div v-if="filteredEntries.length > 0" class="entries-container">
           <h2 class="entries-heading">Your Journal Entries</h2>
           <div class="entries-grid">
-            <div v-for="entry in filteredEntries" :key="entry.id" class="entry-card">
+            <div
+              v-for="entry in filteredEntries"
+              :key="entry.id"
+              class="entry-card"
+            >
               <div class="card shadow-lg">
                 <div class="card-body journal-entry-body">
                   <JournalEntry :entry="entry" />
-                  <router-link :to="`/entry/${entry.id}`" class="view-entry-button">View Entry</router-link>
+                  <router-link
+                    :to="`/entry/${entry.id}`"
+                    class="view-entry-button"
+                    >View Entry</router-link
+                  >
                 </div>
                 <div class="card-footer text-muted sentiment-wrapper">
                   <span :class="getSentimentClass(entry.sentiment)">
@@ -58,7 +74,9 @@
         <div v-else class="no-entries-message">
           <p>No journal entries yet. Add one above!</p>
         </div>
-        <router-link class="new-entry-button" to="/new-entry">Create New Entry</router-link>
+        <router-link class="new-entry-button" to="/new-entry"
+          >Create New Entry</router-link
+        >
       </section>
     </div>
   </div>
@@ -72,7 +90,7 @@ import "../assets/journal-dashboard.css";
 import Chart from "chart.js/auto";
 
 export default {
-  name: 'JournalDashboard',
+  name: "JournalDashboard",
   components: {
     JournalForm,
     JournalEntry,
@@ -80,8 +98,8 @@ export default {
   data() {
     return {
       entries: [],
-      selectedSentiment: 'all',
-      filteredEntries: []
+      selectedSentiment: "all",
+      filteredEntries: [],
     };
   },
   created() {
@@ -99,10 +117,12 @@ export default {
       }
     },
     filterEntries() {
-      if (this.selectedSentiment === 'all') {
+      if (this.selectedSentiment === "all") {
         this.filteredEntries = this.entries;
       } else {
-        this.filteredEntries = this.entries.filter(entry => entry.sentiment === this.selectedSentiment);
+        this.filteredEntries = this.entries.filter(
+          (entry) => entry.sentiment === this.selectedSentiment
+        );
       }
     },
     getSentimentMessage(sentiment) {
@@ -146,37 +166,48 @@ export default {
       }
     },
     getSentimentClass(sentiment) {
-      return sentiment === 'positive' ? 'text-success' :
-             sentiment === 'negative' ? 'text-danger' :
-             'text-secondary';
+      return sentiment === "positive"
+        ? "text-success"
+        : sentiment === "negative"
+        ? "text-danger"
+        : "text-secondary";
     },
     createSentimentChart() {
       const sentimentCounts = {
-        positive: this.entries.filter(entry => entry.sentiment === 'positive').length,
-        neutral: this.entries.filter(entry => entry.sentiment === 'neutral').length,
-        negative: this.entries.filter(entry => entry.sentiment === 'negative').length
+        positive: this.entries.filter((entry) => entry.sentiment === "positive")
+          .length,
+        neutral: this.entries.filter((entry) => entry.sentiment === "neutral")
+          .length,
+        negative: this.entries.filter((entry) => entry.sentiment === "negative")
+          .length,
       };
 
-      const ctx = document.getElementById('sentimentChart').getContext('2d');
+      const ctx = document.getElementById("sentimentChart").getContext("2d");
       new Chart(ctx, {
-        type: 'doughnut',
+        type: "doughnut",
         data: {
-          labels: ['Positive', 'Neutral', 'Negative'],
-          datasets: [{
-            data: [sentimentCounts.positive, sentimentCounts.neutral, sentimentCounts.negative],
-            backgroundColor: ['#93C5FD', '#3B82F6', '#1E3A8A'],
-          }]
+          labels: ["Positive", "Neutral", "Negative"],
+          datasets: [
+            {
+              data: [
+                sentimentCounts.positive,
+                sentimentCounts.neutral,
+                sentimentCounts.negative,
+              ],
+              backgroundColor: ["#93C5FD", "#3B82F6", "#1E3A8A"],
+            },
+          ],
         },
         options: {
           responsive: true,
           plugins: {
             legend: {
-              position: 'top',
+              position: "top",
             },
-          }
-        }
+          },
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>
