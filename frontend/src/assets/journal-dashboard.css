@@ -12,7 +12,9 @@
   position: fixed;
   top: 0;
   z-index: 100; /* Keep it high to make sure it sits on top of other elements */
-  backdrop-filter: blur(5px); /* Optional: Add blur to make text stand out more */
+  backdrop-filter: blur(
+    5px
+  ); /* Optional: Add blur to make text stand out more */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -73,8 +75,8 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-  padding-top: 100px ;
-  font-family: 'Nunito', sans-serif;
+  padding-top: 100px;
+  font-family: "Nunito", sans-serif;
   background: linear-gradient(to bottom right, #e0f7fa, #b2ebf2);
   min-height: 100vh;
 }
@@ -155,7 +157,7 @@
 .view-entry-button {
   display: inline-block;
   margin-top: 10px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   padding: 10px 20px;
   text-decoration: none;
@@ -169,7 +171,7 @@
 }
 
 .new-entry-button {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   padding: 15px 30px;
   text-decoration: none;
@@ -187,3 +189,4 @@
   color: #777;
   margin: 20px 0;
 }
+

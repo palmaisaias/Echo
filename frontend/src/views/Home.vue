@@ -10,7 +10,7 @@
             <router-link class="nav-links-home" to="/">home</router-link>
           </li>
           <li class="nav-item-home">
-            <router-link class="nav-links-home" to="/about">about Us</router-link>
+            <router-link class="nav-links-home" to="/about">about us</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-links-home" to="/features">features</router-link>
@@ -68,10 +68,11 @@
       </section>
       <footer class="footer-section" data-aos="fade-in">
         <div class="footer-content">
-          <div class="footer-logo">
-            <router-link class="nav-logo" to="/">Echo Journal</router-link>
+          <div class="footer-logo-home">
+            <router-link class="footy-logo-home" to="/">
+              <img src="/echoLOG.png" alt="Echo Journal Logo" /></router-link>
           </div>
-          <div class="footer-links">
+          <div class="footer-links-home">
             <ul>
               <li><router-link to="/">Home</router-link></li>
               <li><router-link to="/about">About Us</router-link></li>

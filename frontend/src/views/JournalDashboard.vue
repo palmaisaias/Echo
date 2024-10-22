@@ -10,7 +10,7 @@
             <router-link class="nav-links" to="/">home</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-links" to="/about">about Us</router-link>
+            <router-link class="nav-links" to="/about">about us</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-links" to="/features">features</router-link>
@@ -23,7 +23,7 @@
     </nav>
     <div class="dashboard-container">
       <section class="journal-dashboard">
-        <div class="header">
+        <div class="header float-down-advanced">
           <!-- <h1 class="dashboard-title">Your Personal Journal</h1> -->
           <JournalForm @entry-added="fetchEntries" />
         </div>
@@ -42,7 +42,12 @@
             <option value="negative">Negative</option>
           </select>
         </div> -->
-        <div class="chart-container" v-if="entries.length > 0">
+        <div
+          class="chart-container"
+          v-if="entries.length > 0"
+          data-aos="zoom-in"
+          data-aos-duration="1500"
+        >
           <canvas id="sentimentChart"></canvas>
         </div>
         <div v-if="filteredEntries.length > 0" class="entries-container">
@@ -89,6 +94,11 @@ import JournalEntry from "../components/JournalEntry.vue";
 import axios from "axios";
 import "../assets/journal-dashboard.css";
 import Chart from "chart.js/auto";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { gsap } from "gsap";
+
+AOS.init();
 
 export default {
   name: "JournalDashboard",
@@ -105,6 +115,44 @@ export default {
   },
   created() {
     this.fetchEntries();
+  },
+  mounted() {
+    AOS.init({
+      once: true, // Animation runs only once
+    });
+    const tl = gsap.timeline();
+
+    // Animate the header entering the view with a slight bounce effect
+    tl.fromTo(
+      ".header",
+      {
+        y: -300,
+        scale: 1.5,
+        opacity: 0,
+        rotation: -10,
+      },
+      {
+        y: 0,
+        scale: 1,
+        opacity: 1,
+        rotation: 0,
+        duration: 2,
+        ease: "back.out(1.7)", // Provides a realistic overshoot effect
+      }
+    );
+
+    // Add a gentle floating motion to the header after it appears
+    tl.to(
+      ".header",
+      {
+        x: "+=10",
+        duration: 2,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: 1, // Makes the floating motion continuous
+      },
+      "-=1" // Starts this animation 1 second before the previous one ends
+    );
   },
   computed: {
     // Computed property to always sort entries by ID (highest to lowest)
