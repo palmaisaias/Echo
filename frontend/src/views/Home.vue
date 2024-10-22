@@ -43,7 +43,7 @@ export default {
 .navbar {
   width: 100%;
   height: 60px;
-  background-color: #4CAF50;
+  background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,14 +79,18 @@ export default {
 }
 
 .nav-links {
-  color: #fff;
+  color: #333;
+  background: #fff;
+  padding: 10px 15px;
+  border-radius: 15px;
   text-decoration: none;
   font-size: 1.2em;
-  transition: color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .nav-links:hover {
-  color: #b6fbff;
+  background-color: #b6fbff;
+  color: #333;
 }
 
 .home-container {
