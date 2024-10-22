@@ -261,78 +261,125 @@ export default {
         sentimentSummary[dateKey].count += 1;
       });
 
-      const labels = Object.keys(sentimentSummary);
-      const positiveData = labels.map(
-        (date) => sentimentSummary[date].positive / sentimentSummary[date].count
+      const labels = Object.keys(sentimentSummary).sort(
+        (a, b) => new Date(a) - new Date(b)
       );
-      const neutralData = labels.map(
-        (date) => sentimentSummary[date].neutral / sentimentSummary[date].count
-      );
-      const negativeData = labels.map(
-        (date) => sentimentSummary[date].negative / sentimentSummary[date].count
-      );
+      const averageData = labels.map((date) => {
+        const { positive, neutral, negative, count } = sentimentSummary[date];
+        return (positive + neutral * 0.5) / count; // Calculating an average mood score including neutral
+      });
 
       const ctx = document.getElementById("sentimentChart").getContext("2d");
-      new Chart(ctx, {
-        type: "line",
-        data: {
-          labels: labels,
-          datasets: [
-            {
-              label: "Good Mood",
-              data: positiveData,
-              borderColor: "#93C5FD",
-              backgroundColor: "rgba(147, 197, 253, 0.5)",
-              fill: true,
-            },
-            {
-              label: "Neutral Mood",
-              data: neutralData,
-              borderColor: "#3B82F6",
-              backgroundColor: "rgba(59, 130, 246, 0.5)",
-              fill: true,
-            },
-            {
-              label: "Going Through It",
-              data: negativeData,
-              borderColor: "#1E3A8A",
-              backgroundColor: "rgba(30, 58, 138, 0.5)",
-              fill: true,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              position: "top",
-            },
+
+      // Preload emoji images before creating the chart
+      const emojiHappy = new Image();
+      const emojiNeutral = new Image();
+      const emojiSad = new Image();
+      emojiHappy.src = "/happy.png"; // Adjusted path to happy emoji
+      emojiNeutral.src = "/neutral.png"; // Adjusted path to neutral emoji
+      emojiSad.src = "/sadness.png"; // Adjusted path to sad emoji
+
+      // Wait for images to load before drawing the chart
+      const imagesLoaded = [emojiHappy, emojiNeutral, emojiSad].map(
+        (img) =>
+          new Promise((resolve) => {
+            img.onload = resolve;
+          })
+      );
+
+      Promise.all(imagesLoaded).then(() => {
+        new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "",
+                data: averageData,
+                borderColor: "#3B82F6",
+                backgroundColor: "rgba(59, 130, 246, 0.5)",
+                fill: true,
+                tension: 0.4, // Make the line smoother by adding tension
+              },
+            ],
           },
-          scales: {
-            x: {
-              title: {
-                display: true,
-                text: "Date",
+          options: {
+            responsive: true,
+            layout: {
+              padding: {
+                top: 30, // Add padding to top to give room for emojis
+                bottom: 30, // Add padding to bottom if needed
               },
             },
-            y: {
-              title: {
-                display: true,
-                text: "Mood",
+            plugins: {
+              legend: {
+                position: "null",
+                labels: {},
               },
-              ticks: {
-                callback: function (value) {
-                  if (value === 1) return "Winning Coffee";
-                  if (value === 0.5) return "Just Here";
-                  if (value === 0) return "No Chips";
-                  return "";
+            },
+            scales: {
+              x: {
+                title: {
+                  display: true,
+                  text: "Date",
+                  font: {
+                    size: 16, // Increase font size for better readability
+                  },
+                },
+                ticks: {
+                  font: {
+                    size: 14, // Increase font size for better readability
+                  },
                 },
               },
-              suggestedMin: 0,
-              suggestedMax: 1,
+              y: {
+                title: {
+                  display: true,
+                  text: "Mood",
+                  font: {
+                    size: 16, // Increase font size for better readability
+                  },
+                },
+                ticks: {
+                  callback: function (value) {
+                    if (value === 1) return "Winning Coffee";
+                    if (value === 0.5) return "Just Here";
+                    if (value === 0) return "No Chips";
+                    return "";
+                  },
+                  font: {
+                    size: 14, // Increase font size for better readability
+                  },
+                },
+                suggestedMin: 0,
+                suggestedMax: 1,
+              },
+            },
+            animation: {
+              onComplete: (chart) => {
+                const ctx = chart.chart.ctx;
+                const dataset = chart.chart.data.datasets[0];
+                const meta = chart.chart.getDatasetMeta(0);
+                meta.data.forEach((point, index) => {
+                  const value = dataset.data[index];
+                  let emoji;
+
+                  // Select appropriate emoji based on sentiment value
+                  if (value > 0.75) {
+                    emoji = emojiHappy;
+                  } else if (value > 0.25) {
+                    emoji = emojiNeutral;
+                  } else {
+                    emoji = emojiSad;
+                  }
+
+                  // Draw emoji at the point
+                  ctx.drawImage(emoji, point.x - 15, point.y - 25, 45, 45);
+                });
+              },
             },
           },
-        },
+        });
       });
     },
   },
