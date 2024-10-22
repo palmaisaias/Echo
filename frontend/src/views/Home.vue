@@ -20,14 +20,14 @@
       </div>
     </nav>
     <div class="home-container">
-      <section class="hero-section">
+      <section class="hero-section" data-aos="fade-in">
         <div class="hero-text">
           <h1>Welcome to Echo Mental Health Journal</h1>
           <p>Track your thoughts, analyze your emotions, and grow towards a more mindful you.</p>
           <router-link class="cta-button" to="/dashboard">Go to Journal Dashboard</router-link>
         </div>
       </section>
-      <section class="testimonials-section">
+      <section class="testimonials-section" data-aos="fade-up">
         <h2>What Our Users Are Saying</h2>
         <div class="testimonials">
           <div class="testimonial">
@@ -44,27 +44,27 @@
           </div>
         </div>
       </section>
-      <section class="features-section">
+      <section class="features-section" data-aos="fade-up">
         <h2>Features to Help You on Your Journey</h2>
         <div class="features">
-          <div class="feature-card">
+          <div class="feature-card" data-aos="zoom-in">
             <i class="fas fa-pen"></i>
             <h3>Daily Journal</h3>
             <p>Capture your thoughts and emotions each day to reflect and grow.</p>
           </div>
-          <div class="feature-card">
+          <div class="feature-card" data-aos="zoom-in">
             <i class="fas fa-chart-line"></i>
             <h3>Emotion Analysis</h3>
             <p>Analyze your emotions over time with insightful visualizations.</p>
           </div>
-          <div class="feature-card">
+          <div class="feature-card" data-aos="zoom-in">
             <i class="fas fa-user-friends"></i>
             <h3>Community Support</h3>
             <p>Join a community of like-minded individuals for support and encouragement.</p>
           </div>
         </div>
       </section>
-      <footer class="footer-section">
+      <footer class="footer-section" data-aos="fade-in">
         <div class="footer-content">
           <div class="footer-logo">
             <router-link class="nav-logo" to="/">Echo Journal</router-link>
@@ -92,19 +92,26 @@
 </template>
 
 <script>
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 export default {
   name: 'HomePage',
+  mounted() {
+    AOS.init();
+  }
 };
 </script>
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css');
 
 .navbar {
   width: 100%;
   height: 80px;
-  background-color: #2727274b;
+  background-color: #27272752;
   display: flex;
   align-items: center;
   justify-content: center;
