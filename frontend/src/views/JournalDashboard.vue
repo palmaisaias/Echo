@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar">
+    <nav class="journal-navbar">
       <div class="nav-container">
         <router-link class="nav-logo" to="/">Echo Journal</router-link>
         <ul class="nav-menu">
@@ -34,6 +34,9 @@
             <option value="negative">Negative</option>
           </select>
         </div>
+        <div class="chart-container" v-if="entries.length > 0">
+          <canvas id="sentimentChart"></canvas>
+        </div>
         <div v-if="filteredEntries.length > 0" class="entries-container">
           <h2 class="entries-heading">Your Journal Entries</h2>
           <div class="entries-grid">
@@ -66,6 +69,7 @@ import JournalForm from "../components/JournalForm.vue";
 import JournalEntry from "../components/JournalEntry.vue";
 import axios from "axios";
 import "../assets/journal-dashboard.css";
+import Chart from "chart.js/auto";
 
 export default {
   name: 'JournalDashboard',
@@ -89,6 +93,7 @@ export default {
         const response = await axios.get("http://localhost:3000/api/journal");
         this.entries = response.data;
         this.filteredEntries = this.entries;
+        this.createSentimentChart();
       } catch (error) {
         console.error("Error fetching journal entries:", error);
       }
@@ -144,6 +149,33 @@ export default {
       return sentiment === 'positive' ? 'text-success' :
              sentiment === 'negative' ? 'text-danger' :
              'text-secondary';
+    },
+    createSentimentChart() {
+      const sentimentCounts = {
+        positive: this.entries.filter(entry => entry.sentiment === 'positive').length,
+        neutral: this.entries.filter(entry => entry.sentiment === 'neutral').length,
+        negative: this.entries.filter(entry => entry.sentiment === 'negative').length
+      };
+
+      const ctx = document.getElementById('sentimentChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Positive', 'Neutral', 'Negative'],
+          datasets: [{
+            data: [sentimentCounts.positive, sentimentCounts.neutral, sentimentCounts.negative],
+            backgroundColor: ['#93C5FD', '#3B82F6', '#1E3A8A'],
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+          }
+        }
+      });
     }
   }
 };

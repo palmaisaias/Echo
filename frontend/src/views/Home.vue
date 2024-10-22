@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar">
+    <nav class="home-navbar">
       <div class="nav-container">
         <router-link class="nav-logo" to="/">Echo Journal</router-link>
         <ul class="nav-menu">
