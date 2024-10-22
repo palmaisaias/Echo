@@ -27,6 +27,23 @@
           <router-link class="cta-button" to="/dashboard">Go to Journal Dashboard</router-link>
         </div>
       </section>
+      <section class="testimonials-section">
+        <h2>What Our Users Are Saying</h2>
+        <div class="testimonials">
+          <div class="testimonial">
+            <p>"Echo has helped me understand my emotions better and feel more in control of my mental health. I highly recommend it!"</p>
+            <span>- Alex R.</span>
+          </div>
+          <div class="testimonial">
+            <p>"Using Echo every day has made a huge difference in my life. It's simple, easy to use, and incredibly insightful."</p>
+            <span>- Jamie L.</span>
+          </div>
+          <div class="testimonial">
+            <p>"A wonderful tool that has helped me navigate my thoughts and feelings. Echo is like a supportive friend in my pocket."</p>
+            <span>- Taylor M.</span>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 </template>
@@ -95,12 +112,13 @@ export default {
 
 .home-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(to right, #83a4d4, #b6fbff);
   font-family: 'Nunito', sans-serif;
-  padding-top: 60px;
+  padding-top: 100px;
 }
 
 .hero-section {
@@ -109,6 +127,7 @@ export default {
   padding: 40px;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 60px;
 }
 
 .hero-text h1 {
@@ -136,5 +155,46 @@ export default {
 
 .cta-button:hover {
   background-color: #45a049;
+}
+
+.testimonials-section {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 50px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 40px 20px;
+}
+
+.testimonials-section h2 {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.testimonials {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.testimonial {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial p {
+  font-size: 1.2em;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.testimonial span {
+  font-weight: bold;
+  color: #333;
 }
 </style>
