@@ -237,28 +237,67 @@ export default {
         : "text-secondary";
     },
     createSentimentChart() {
-      const sentimentCounts = {
-        positive: this.entries.filter((entry) => entry.sentiment === "positive")
-          .length,
-        neutral: this.entries.filter((entry) => entry.sentiment === "neutral")
-          .length,
-        negative: this.entries.filter((entry) => entry.sentiment === "negative")
-          .length,
-      };
+      // Transform entries data to match format needed for a time-based area chart
+      const sentimentDates = this.entries.map((entry) => {
+        return {
+          date: new Date(entry.created_at), // Assuming `created_at` field exists with the date of the entry
+          sentiment: entry.sentiment,
+        };
+      });
+
+      // Group entries by date and calculate averages for each day
+      const sentimentSummary = {};
+      sentimentDates.forEach((entry) => {
+        const dateKey = entry.date.toLocaleDateString("en-US");
+        if (!sentimentSummary[dateKey]) {
+          sentimentSummary[dateKey] = {
+            positive: 0,
+            neutral: 0,
+            negative: 0,
+            count: 0,
+          };
+        }
+        sentimentSummary[dateKey][entry.sentiment] += 1;
+        sentimentSummary[dateKey].count += 1;
+      });
+
+      const labels = Object.keys(sentimentSummary);
+      const positiveData = labels.map(
+        (date) => sentimentSummary[date].positive / sentimentSummary[date].count
+      );
+      const neutralData = labels.map(
+        (date) => sentimentSummary[date].neutral / sentimentSummary[date].count
+      );
+      const negativeData = labels.map(
+        (date) => sentimentSummary[date].negative / sentimentSummary[date].count
+      );
 
       const ctx = document.getElementById("sentimentChart").getContext("2d");
       new Chart(ctx, {
-        type: "doughnut",
+        type: "line",
         data: {
-          labels: ["Positive", "Neutral", "Negative"],
+          labels: labels,
           datasets: [
             {
-              data: [
-                sentimentCounts.positive,
-                sentimentCounts.neutral,
-                sentimentCounts.negative,
-              ],
-              backgroundColor: ["#93C5FD", "#3B82F6", "#1E3A8A"],
+              label: "Good Mood",
+              data: positiveData,
+              borderColor: "#93C5FD",
+              backgroundColor: "rgba(147, 197, 253, 0.5)",
+              fill: true,
+            },
+            {
+              label: "Neutral Mood",
+              data: neutralData,
+              borderColor: "#3B82F6",
+              backgroundColor: "rgba(59, 130, 246, 0.5)",
+              fill: true,
+            },
+            {
+              label: "Going Through It",
+              data: negativeData,
+              borderColor: "#1E3A8A",
+              backgroundColor: "rgba(30, 58, 138, 0.5)",
+              fill: true,
             },
           ],
         },
@@ -267,6 +306,30 @@ export default {
           plugins: {
             legend: {
               position: "top",
+            },
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: "Date",
+              },
+            },
+            y: {
+              title: {
+                display: true,
+                text: "Mood",
+              },
+              ticks: {
+                callback: function (value) {
+                  if (value === 1) return "Winning Coffee";
+                  if (value === 0.5) return "Just Here";
+                  if (value === 0) return "No Chips";
+                  return "";
+                },
+              },
+              suggestedMin: 0,
+              suggestedMax: 1,
             },
           },
         },
