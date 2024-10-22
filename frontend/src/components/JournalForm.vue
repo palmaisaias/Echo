@@ -1,7 +1,7 @@
 <template>
   <div class="journal-form">
     <div class="header-container text-center mb-5">
-      <h2 class="form-title display-4 text-primary">Create a New Journal Entry</h2>
+      <h2 class="form-title display-4 text-primary">Reflect and Write</h2>
       <p class="text-muted">"Every thought penned down is a step towards clarity."</p>
     </div>
     

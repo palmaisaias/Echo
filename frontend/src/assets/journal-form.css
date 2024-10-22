@@ -3,7 +3,7 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css");
 
 .journal-form {
-  max-width: 800px;
+  max-width: 650px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -12,7 +12,7 @@
   background: url("https://i.pinimg.com/originals/b6/cd/34/b6cd34ebcbfb4b8ef5ffd4221f711f74.jpg")
     no-repeat center center;
   background-size: cover;
-  padding: 50px;
+  padding: 25px;
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
