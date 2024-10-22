@@ -44,6 +44,49 @@
           </div>
         </div>
       </section>
+      <section class="features-section">
+        <h2>Features to Help You on Your Journey</h2>
+        <div class="features">
+          <div class="feature-card">
+            <i class="fas fa-pen"></i>
+            <h3>Daily Journal</h3>
+            <p>Capture your thoughts and emotions each day to reflect and grow.</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-chart-line"></i>
+            <h3>Emotion Analysis</h3>
+            <p>Analyze your emotions over time with insightful visualizations.</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-user-friends"></i>
+            <h3>Community Support</h3>
+            <p>Join a community of like-minded individuals for support and encouragement.</p>
+          </div>
+        </div>
+      </section>
+      <footer class="footer-section">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <router-link class="nav-logo" to="/">Echo Journal</router-link>
+          </div>
+          <div class="footer-links">
+            <ul>
+              <li><router-link to="/">Home</router-link></li>
+              <li><router-link to="/about">About Us</router-link></li>
+              <li><router-link to="/features">Features</router-link></li>
+              <li><router-link to="/contact">Contact</router-link></li>
+            </ul>
+          </div>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Echo Mental Health Journal. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   </div>
 </template>
@@ -56,11 +99,12 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
 
 .navbar {
   width: 100%;
-  height: 60px;
-  background-color: transparent;
+  height: 80px;
+  background-color: #2727274b;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -196,5 +240,110 @@ export default {
 .testimonial span {
   font-weight: bold;
   color: #333;
+}
+
+.features-section {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 50px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 40px 20px;
+}
+
+.features-section h2 {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background: #f9f9f9;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 300px;
+}
+
+.feature-card i {
+  font-size: 2.5em;
+  color: #4CAF50;
+  margin-bottom: 15px;
+}
+
+.feature-card h3 {
+  font-size: 1.8em;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.feature-card p {
+  font-size: 1.2em;
+  color: #555;
+}
+
+.footer-section {
+  background: #333;
+  color: #fff;
+  padding: 30px 20px;
+  text-align: center;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-logo {
+  font-size: 1.8em;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+}
+
+.footer-links ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #b6fbff;
+}
+
+.footer-social a {
+  color: #fff;
+  font-size: 1.5em;
+  margin: 0 10px;
+  transition: color 0.3s;
+}
+
+.footer-social a:hover {
+  color: #b6fbff;
+}
+
+.footer-bottom {
+  margin-top: 20px;
 }
 </style>
