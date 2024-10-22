@@ -1,3 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css");
+
 .journal-navbar {
   width: 100%;
   height: 80px;
@@ -19,6 +23,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+  margin-top: 15px;
 }
 
 .nav-logo-dash {
@@ -33,6 +38,7 @@
   height: auto; /* Maintains aspect ratio */
   max-width: 100%; /* Ensures responsiveness */
   display: block; /* Removes any extra space around the image */
+  margin-bottom: 15px;
 }
 
 .nav-menu {
@@ -46,12 +52,13 @@
 }
 
 .nav-links {
+  font-family: "Nunito";
   color: #333;
   background: #fff;
   padding: 10px 15px;
   border-radius: 15px;
   text-decoration: none;
-  font-size: 1.2em;
+  font-size: 1.1rem;
   transition: background-color 0.3s, color 0.3s;
 }
 

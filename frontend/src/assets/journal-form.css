@@ -1,85 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css");
+
 .journal-form {
-  max-width: 700px;
-  margin: 50px auto;
-  background: #fff;
-  border-radius: 12px;
-  padding: 30px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease-in-out;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: url("https://i.pinimg.com/originals/b6/cd/34/b6cd34ebcbfb4b8ef5ffd4221f711f74.jpg")
+    no-repeat center center;
+  background-size: cover;
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-.journal-form:hover {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+.header-container {
+  background: rgba(255, 255, 255, 0.516);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-  font-size: 2rem;
-  color: #4a148c;
-  font-weight: bold;
-  margin-bottom: 25px;
+.form-title {
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  color: #242424;
 }
 
 .form-container {
-  padding: 20px;
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.609) !important;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 .form-label {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #333;
+  font-size: 1.25rem;
+  font-family: "Nunito", sans-serif;
+  color: #242424ad !important;
 }
 
 .form-input,
 .form-textarea {
-  font-size: 1.1rem;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  transition: border-color 0.2s ease;
+  background: #deeaf6 !important;
+  border: 1px solid #ccc;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  padding: 15px;
+  font-size: 1rem;
 }
 
 .form-input:focus,
 .form-textarea:focus {
-  border-color: #4a148c;
-  outline: none;
-  box-shadow: 0 0 5px rgba(74, 20, 140, 0.5);
+  box-shadow: 0 0 10px rgba(106, 17, 203, 0.4);
+  border-color: #6a11cb;
 }
 
-.submit-btn {
-  background-color: #4a148c;
-  border-color: #4a148c;
-  font-size: 1.2rem;
+.submit-btn-form {
+  font-family: "Nunito", sans-serif;
   font-weight: bold;
+  background-color: #4caf50;
+  color: #fff;
   transition: background-color 0.3s ease;
 }
 
-.submit-btn:hover {
-  background-color: #6a1b9a;
-  border-color: #6a1b9a;
+.submit-btn-form:hover {
+  background-color: #45a049;
 }
 
 .sentiment-result {
-  margin-top: 30px;
+  animation: fadeIn 1s ease;
 }
 
-.alert-info {
-  background-color: #e3f2fd;
+.alert {
+  font-family: "Nunito", sans-serif;
+  font-size: 1.1rem;
   color: #333;
-  border-radius: 8px;
-  padding: 20px;
-  font-size: 1.2rem;
-  text-align: center;
 }
 
-@media (max-width: 768px) {
-  .journal-form {
-    padding: 20px;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-  h2 {
-    font-size: 1.8rem;
+  to {
+    opacity: 1;
   }
-  .submit-btn {
-    font-size: 1rem;
-  }
+}
+
+.shadow-soft {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

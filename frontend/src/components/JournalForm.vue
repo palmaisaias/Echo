@@ -1,36 +1,40 @@
 <template>
   <div class="journal-form">
-    <h2 class="text-center mb-4">Create a New Journal Entry</h2>
-    <form @submit.prevent="handleSubmit" class="form-container border p-4 rounded shadow-lg">
-      <div class="mb-3">
+    <div class="header-container text-center mb-5">
+      <h2 class="form-title display-4 text-primary">Create a New Journal Entry</h2>
+      <p class="text-muted">"Every thought penned down is a step towards clarity."</p>
+    </div>
+    
+    <form @submit.prevent="handleSubmit" class="form-container border-0 p-5 rounded-lg shadow-soft">
+      <div class="mb-4">
         <label for="title" class="form-label">Title:</label>
-        <input 
-          type="text" 
-          id="title" 
-          v-model="title" 
-          class="form-control form-input" 
-          placeholder="Enter the title" 
-          required 
+        <input
+          type="text"
+          id="title"
+          v-model="title"
+          class="form-control form-input border-0 rounded-pill p-3 shadow-sm"
+          placeholder="Give your entry a title..." 
+          required
         />
       </div>
-      <div class="mb-3">
+      <div class="mb-4">
         <label for="content" class="form-label">Content:</label>
-        <textarea 
-          id="content" 
-          v-model="content" 
-          class="form-control form-textarea" 
-          placeholder="Write your entry here..." 
-          rows="5" 
+        <textarea
+          id="content"
+          v-model="content"
+          class="form-control form-textarea border-0 rounded-lg p-4 shadow-sm"
+          placeholder="What's on your mind today?" 
+          rows="6"
           required
         ></textarea>
       </div>
-      <button type="submit" class="btn btn-primary w-100 submit-btn">Add Entry</button>
+      <button type="submit" class="btn w-100 submit-btn-form btn-primary btn-lg rounded-pill p-3 shadow">Capture moment...</button>
     </form>
 
-    <div v-if="sentiment" class="mt-4 sentiment-result">
-      <h3>Sentiment Analysis Result:</h3>
-      <div class="alert alert-info">
-        <p>{{ sentimentMessage }}</p>
+    <div v-if="sentiment" class="mt-5 sentiment-result text-center">
+      <h3 class="text-secondary">Sentiment Analysis Result:</h3>
+      <div class="alert alert-info border-0 shadow-soft p-4 mt-3 rounded-lg">
+        <p class="fs-5">{{ sentimentMessage }}</p>
       </div>
     </div>
   </div>

@@ -7,16 +7,16 @@
         </router-link>
         <ul class="nav-menu">
           <li class="nav-item">
-            <router-link class="nav-links" to="/">Home</router-link>
+            <router-link class="nav-links" to="/">home</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-links" to="/about">About Us</router-link>
+            <router-link class="nav-links" to="/about">about Us</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-links" to="/features">Features</router-link>
+            <router-link class="nav-links" to="/features">features</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-links" to="/contact">Contact</router-link>
+            <router-link class="nav-links" to="/contact">contact</router-link>
           </li>
         </ul>
       </div>
@@ -27,7 +27,7 @@
           <!-- <h1 class="dashboard-title">Your Personal Journal</h1> -->
           <JournalForm @entry-added="fetchEntries" />
         </div>
-        <div class="filter-container">
+        <!-- <div class="filter-container">
           <label for="sentiment-filter" class="filter-label"
             >Filter by Sentiment:</label
           >
@@ -41,7 +41,7 @@
             <option value="neutral">Neutral</option>
             <option value="negative">Negative</option>
           </select>
-        </div>
+        </div> -->
         <div class="chart-container" v-if="entries.length > 0">
           <canvas id="sentimentChart"></canvas>
         </div>
@@ -63,6 +63,7 @@
                   >
                 </div>
                 <div class="card-footer text-muted sentiment-wrapper">
+                  <!-- <span class="journal-entry-echocard-mood badge badge-info">Mood:</span> -->
                   <span :class="getSentimentClass(entry.sentiment)">
                     {{ getSentimentMessage(entry.sentiment) }}
                   </span>
@@ -105,25 +106,40 @@ export default {
   created() {
     this.fetchEntries();
   },
+  computed: {
+    // Computed property to always sort entries by ID (highest to lowest)
+    sortedEntries() {
+      return this.filteredEntries.sort((a, b) => b.id - a.id);
+    },
+  },
   methods: {
     async fetchEntries() {
       try {
         const response = await axios.get("http://localhost:3000/api/journal");
-        this.entries = response.data;
-        this.filteredEntries = this.entries;
-        this.createSentimentChart();
+
+        // Sort entries by ID in descending order
+        this.entries = response.data.sort((a, b) => b.id - a.id);
+        this.filteredEntries = [...this.entries];
+
+        // Wait for DOM updates before creating the chart
+        this.$nextTick(() => {
+          this.createSentimentChart();
+        });
       } catch (error) {
         console.error("Error fetching journal entries:", error);
       }
     },
     filterEntries() {
       if (this.selectedSentiment === "all") {
-        this.filteredEntries = this.entries;
+        this.filteredEntries = [...this.entries];
       } else {
         this.filteredEntries = this.entries.filter(
           (entry) => entry.sentiment === this.selectedSentiment
         );
       }
+
+      // Ensure the filtered entries are sorted by ID (highest to lowest)
+      this.filteredEntries.sort((a, b) => b.id - a.id);
     },
     getSentimentMessage(sentiment) {
       const positiveResponses = [
