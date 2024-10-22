@@ -111,7 +111,7 @@ export default {
 .navbar {
   width: 100%;
   height: 80px;
-  background-color: #27272752;
+  background-color: rgba(39, 39, 39, 0.32);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -167,7 +167,9 @@ export default {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(to right, #83a4d4, #b6fbff);
+  background: linear-gradient(to right, rgba(131, 164, 212, 0.8), rgba(182, 251, 255, 0.8)), url('https://images.unsplash.com/photo-1507829525154-5f81f1d0f2b2?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-size: cover;
+  background-position: center;
   font-family: 'Nunito', sans-serif;
   padding-top: 100px;
 }
