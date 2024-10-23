@@ -1,7 +1,7 @@
 <template>
-    <div class="modal-overlay" @click.self="close">
+    <div class="modal-overlay" @click.self="closeModal">
       <div class="modal-content">
-        <button class="modal-close-button" @click="close">&times;</button>
+        <button class="modal-close-button" @click="closeModal">&times;</button>
         <h2>About Us</h2>
         <p>
           Echo Mental Health Journal is dedicated to helping individuals track their thoughts, analyze their emotions, and grow towards a more mindful self. Our goal is to provide a supportive space for mental health reflection and self-improvement.
@@ -16,10 +16,10 @@
   <script>
   export default {
     name: 'ModalAboutUs',
-    props: {
-      close: {
-        type: Function,
-        required: true
+    emits: ['close'],
+    methods: {
+      closeModal() {
+        this.$emit('close');
       }
     }
   };
