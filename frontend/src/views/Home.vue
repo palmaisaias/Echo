@@ -10,7 +10,7 @@
             <router-link class="nav-links-home" to="/">home</router-link>
           </li>
           <li class="nav-item-home">
-            <router-link class="nav-links-home" to="/about">about us</router-link>
+            <a class="nav-links-home" @click="openAboutModal">about us</a>
           </li>
           <li class="nav-item">
             <router-link class="nav-links-home" to="/features">features</router-link>
@@ -91,6 +91,7 @@
         </div>
       </footer>
     </div>
+    <ModalAboutUs v-if="isAboutModalOpen" @close="closeAboutModal" />
   </div>
 </template>
 
@@ -98,12 +99,28 @@
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import "../assets/home.css";
+import ModalAboutUs from '../modals/ModalAboutUs.vue';
 
 export default {
   name: 'HomePage',
+  components: {
+    ModalAboutUs
+  },
+  data() {
+    return {
+      isAboutModalOpen: false
+    };
+  },
   mounted() {
     AOS.init();
+  },
+  methods: {
+    openAboutModal() {
+      this.isAboutModalOpen = true;
+    },
+    closeAboutModal() {
+      this.isAboutModalOpen = false;
+    }
   }
 };
 </script>
-
