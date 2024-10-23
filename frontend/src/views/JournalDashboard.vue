@@ -122,36 +122,17 @@ export default {
     });
     const tl = gsap.timeline();
 
-    // Animate the header entering the view with a slight bounce effect
+    // Animate the header with a simple fade-in effect
     tl.fromTo(
       ".header",
       {
-        y: -300,
-        scale: 1.5,
         opacity: 0,
-        rotation: -10,
       },
       {
-        y: 0,
-        scale: 1,
         opacity: 1,
-        rotation: 0,
-        duration: 2,
-        ease: "back.out(1.7)", // Provides a realistic overshoot effect
+        duration: 1.5,
+        ease: "power1.out", // Smooth easing for a subtle effect
       }
-    );
-
-    // Add a gentle floating motion to the header after it appears
-    tl.to(
-      ".header",
-      {
-        x: "+=10",
-        duration: 2,
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: 1, // Makes the floating motion continuous
-      },
-      "-=1" // Starts this animation 1 second before the previous one ends
     );
   },
   computed: {
@@ -275,8 +256,8 @@ export default {
       const emojiHappy = new Image();
       const emojiNeutral = new Image();
       const emojiSad = new Image();
-      emojiHappy.src = "/happy.png"; // Adjusted path to happy emoji
-      emojiNeutral.src = "/neutral.png"; // Adjusted path to neutral emoji
+      emojiHappy.src = "/image.png"; // Adjusted path to happy emoji
+      emojiNeutral.src = "/grey.png"; // Adjusted path to neutral emoji
       emojiSad.src = "/sadness.png"; // Adjusted path to sad emoji
 
       // Wait for images to load before drawing the chart
@@ -297,7 +278,7 @@ export default {
                 label: "",
                 data: averageData,
                 borderColor: "#3B82F6",
-                backgroundColor: "rgba(59, 130, 246, 0.5)",
+                backgroundColor: "rgba(106, 125, 142, 0.5)",
                 fill: true,
                 tension: 0.4, // Make the line smoother by adding tension
               },

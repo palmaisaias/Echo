@@ -9,8 +9,23 @@ nlp = spacy.load("en_core_web_sm")
 
 def analyze_sentiment(text):
     doc = nlp(text)
-    positive_words = ["good", "happy", "love", "great", "positive", "joyful", "grateful", "optimistic", "peaceful", "content", "satisfied", "hopeful", "cheerful", "vibrant", "blissful", "confident", "empowered", "energetic", "friendly", "harmonious", "inspired", "motivated", "radiant", "thrilled", "uplifted"]
-    negative_words = ["bad", "sad", "hate", "terrible", "negative", "angry", "frustrated", "disappointed", "upset", "miserable", "hopeless", "lonely", "anxious", "depressed", "hurt", "fearful", "bitter", "resentful", "unhappy", "stressed", "worried", "irritated", "discouraged", "nervous", "exhausted"]
+    positive_words = ["good", "happy", "love", "great", "positive", "joyful", "grateful", "optimistic", "peaceful", "content", 
+                        "satisfied", "hopeful", "cheerful", "vibrant", "blissful", "confident", "empowered", "energetic", "friendly", 
+                        "harmonious", "inspired", "motivated", "radiant", "thrilled", "uplifted", "admired", "appreciated", "balanced", 
+                        "brave", "bubbly", "calm", "carefree", "charming", "compassionate", "courageous", "delighted", "elated", 
+                        "enthusiastic", "excited", "fulfilled", "generous", "gleeful", "gracious", "healthy", "hopeful", "incredible", 
+                        "kind-hearted", "liberated", "mindful", "nurtured", "open-hearted", "playful", "pleasant", "proud", "refreshed", 
+                        "relaxed", "resilient", "serene", "spirited", "stable", "strong", "supportive", "thankful", "tranquil", 
+                        "trusting", "valued", "victorious", "whole", "zealous", "zesty"]
+
+    negative_words = ["bad", "sad", "hate", "terrible", "negative", "angry", "frustrated", "disappointed", "upset", "miserable", 
+                        "hopeless", "lonely", "anxious", "depressed", "hurt", "fearful", "bitter", "resentful", "unhappy", "stressed", 
+                        "worried", "irritated", "discouraged", "nervous", "exhausted", "agitated", "alienated", "annoyed", "ashamed", 
+                        "broken", "burnt-out", "confused", "defeated", "desperate", "disheartened", "disrespected", "distressed", 
+                        "disturbed", "doubtful", "embarrassed", "excluded", "fearful", "gloomy", "grieved", "guilty", "heartbroken", 
+                        "helpless", "hopeless", "insecure", "isolated", "jealous", "lonely", "lost", "overwhelmed", "pained", 
+                        "regretful", "rejected", "scared", "shocked", "skeptical", "tense", "tired", "trapped", "unloved", "vulnerable"]
+
 
     positive_count = sum([1 for token in doc if token.text.lower() in positive_words])
     negative_count = sum([1 for token in doc if token.text.lower() in negative_words])
