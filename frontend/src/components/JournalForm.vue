@@ -1,7 +1,7 @@
 <template>
   <div class="journal-form">
     <div class="header-container text-center mb-5">
-      <h2 class="form-title display-4 text-primary">Reflect and Write</h2>
+      <h2 class="form-title display-4">Reflect and Write</h2>
       <p class="text-muted">"Every thought penned down is a step towards clarity."</p>
     </div>
     
@@ -28,7 +28,7 @@
           required
         ></textarea>
       </div>
-      <button type="submit" class="btn w-100 submit-btn-form btn-primary btn-lg rounded-pill p-3 shadow">Capture moment...</button>
+      <button type="submit" class="btn w-100 submit-btn-form btn-lg rounded-pill p-3 shadow">Capture moment...</button>
     </form>
 
     <div v-if="sentiment" class="mt-5 sentiment-result text-center">

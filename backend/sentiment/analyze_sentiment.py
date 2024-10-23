@@ -1,5 +1,6 @@
 import spacy
 from flask import Flask, request, jsonify
+import re
 
 app = Flask(__name__)
 
@@ -8,31 +9,85 @@ app = Flask(__name__)
 nlp = spacy.load("en_core_web_sm")
 
 def analyze_sentiment(text):
+    # Tokenize and lemmatize the input text using spaCy
     doc = nlp(text)
-    positive_words = ["good", "happy", "love", "great", "positive", "joyful", "grateful", "optimistic", "peaceful", "content", 
-                        "satisfied", "hopeful", "cheerful", "vibrant", "blissful", "confident", "empowered", "energetic", "friendly", 
-                        "harmonious", "inspired", "motivated", "radiant", "thrilled", "uplifted", "admired", "appreciated", "balanced", 
-                        "brave", "bubbly", "calm", "carefree", "charming", "compassionate", "courageous", "delighted", "elated", 
-                        "enthusiastic", "excited", "fulfilled", "generous", "gleeful", "gracious", "healthy", "hopeful", "incredible", 
-                        "kind-hearted", "liberated", "mindful", "nurtured", "open-hearted", "playful", "pleasant", "proud", "refreshed", 
-                        "relaxed", "resilient", "serene", "spirited", "stable", "strong", "supportive", "thankful", "tranquil", 
-                        "trusting", "valued", "victorious", "whole", "zealous", "zesty"]
 
-    negative_words = ["bad", "sad", "hate", "terrible", "negative", "angry", "frustrated", "disappointed", "upset", "miserable", 
-                        "hopeless", "lonely", "anxious", "depressed", "hurt", "fearful", "bitter", "resentful", "unhappy", "stressed", 
-                        "worried", "irritated", "discouraged", "nervous", "exhausted", "agitated", "alienated", "annoyed", "ashamed", 
-                        "broken", "burnt-out", "confused", "defeated", "desperate", "disheartened", "disrespected", "distressed", 
-                        "disturbed", "doubtful", "embarrassed", "excluded", "fearful", "gloomy", "grieved", "guilty", "heartbroken", 
-                        "helpless", "hopeless", "insecure", "isolated", "jealous", "lonely", "lost", "overwhelmed", "pained", 
-                        "regretful", "rejected", "scared", "shocked", "skeptical", "tense", "tired", "trapped", "unloved", "vulnerable"]
+    # Expanded positive and negative word lists with intensity weights
+    positive_words = {
+        "good": 1, "happy": 2, "love": 3, "great": 2, "joyful": 3, "grateful": 2,
+        "optimistic": 2, "peaceful": 2, "content": 1, "satisfied": 2, "cheerful": 3,
+        "thrilled": 4, "exhilarated": 4, "uplifted": 3, "relaxed": 2, "empowered": 3,
+        "blissful": 4, "delighted": 3, "ecstatic": 4, "motivated": 3, "confident": 2,
+        "admired": 3, "appreciated": 3, "healing": 2, "safe": 2
+    }
+    
+    negative_words = {
+        "bad": 1, "sad": 2, "hate": 3, "terrible": 3, "angry": 2, "frustrated": 2,
+        "disappointed": 2, "miserable": 3, "hopeless": 3, "anxious": 2, "depressed": 4,
+        "hurt": 2, "fearful": 2, "resentful": 2, "burnout": 3, "overwhelmed": 3,
+        "exhausted": 2, "isolated": 2, "rejected": 3, "crushed": 4, "broken": 3,
+        "demoralized": 4, "shattered": 4, "devastated": 4, "lonely": 3
+    }
+    
+    # Multi-word phrases with higher intensity scores
+    positive_phrases = {
+        "walking on air": 4, "couldn't be happier": 4, "on cloud nine": 4,
+        "found my stride": 3, "feeling better": 2, "turning things around": 3
+    }
+    
+    negative_phrases = {
+        "down in the dumps": 3, "hit me hard": 3, "couldn't shake off": 2,
+        "falling apart": 3, "lost focus": 2, "felt drained": 3, "setback": 2,
+        "at my worst": 4, "burning out": 4, "falling short": 3
+    }
+    
+    # Negation words to handle negation context
+    negation_words = {"not", "never", "no", "hardly", "rarely", "barely", "without"}
 
+    # Initialize counters
+    sentiment_score = 0
+    negation_flag = False
 
-    positive_count = sum([1 for token in doc if token.text.lower() in positive_words])
-    negative_count = sum([1 for token in doc if token.text.lower() in negative_words])
+    # Convert text to lowercase for easier matching
+    text_lower = text.lower()
 
-    if positive_count > negative_count:
+    # Check for multi-word phrases in the input text
+    for phrase, score in positive_phrases.items():
+        if phrase in text_lower:
+            sentiment_score += score
+
+    for phrase, score in negative_phrases.items():
+        if phrase in text_lower:
+            sentiment_score -= score
+
+    # Check individual tokens in the input text
+    for token in doc:
+        word = token.lemma_.lower()
+
+        # Handle negation context
+        if word in negation_words:
+            negation_flag = True
+            continue
+
+        # Adjust sentiment based on presence of negation
+        if word in positive_words:
+            if negation_flag:
+                sentiment_score -= positive_words[word]  # Invert the sentiment
+                negation_flag = False  # Reset flag
+            else:
+                sentiment_score += positive_words[word]
+
+        elif word in negative_words:
+            if negation_flag:
+                sentiment_score += negative_words[word]  # Invert the sentiment
+                negation_flag = False  # Reset flag
+            else:
+                sentiment_score -= negative_words[word]
+
+    # Determine the overall sentiment based on the sentiment score
+    if sentiment_score > 0:
         return 'positive'
-    elif negative_count > positive_count:
+    elif sentiment_score < 0:
         return 'negative'
     else:
         return 'neutral'

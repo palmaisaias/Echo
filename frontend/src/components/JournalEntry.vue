@@ -17,14 +17,15 @@
       </div>
       <div class="journal-entry-echocard-actions text-right">
         <button class="journal-entry-echocard-btn btn btn-primary btn-sm mr-2">Edit</button>
-        <button class="journal-entry-echocard-btn btn btn-danger btn-sm">Delete</button>
+        <button class="journal-entry-echocard-btn btn btn-danger btn-sm" @click="deleteEntry(entry.id)">Delete</button>
       </div>
     </div>
   </div>
 </template>
-  
+
 <script>
 import "../assets/journal-entry.css";  // Import the new CSS file
+import axios from 'axios';
 
 export default {
   props: {
@@ -37,6 +38,20 @@ export default {
     formatDate(date) {
       const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
       return new Date(date).toLocaleDateString(undefined, options);
+    },
+    deleteEntry(id) {
+      if (confirm('Are you sure you want to delete this entry?')) {
+        axios.delete(`http://localhost:3000/api/journal/${id}`)
+          .then(response => {
+            this.$emit('entryDeleted', id);
+            alert(response.data.message);
+            window.location.reload();
+          })
+          .catch(error => {
+            console.error('There was an error deleting the entry:', error);
+            alert('Failed to delete the journal entry.');
+          });
+      }
     }
   }
 };
